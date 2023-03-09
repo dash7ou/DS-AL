@@ -127,3 +127,29 @@ console.log(longestSubstring1("ppppp"))
 console.log(longestSubstring1("abcbccd"))
 console.log(longestSubstring1("aaaaaab"))
 console.log(longestSubstring1("pqbrstbuvwpvy"))
+
+
+console.log("---------------Question4-------------------");
+
+// Method 1 T = O(n*klogk) where n is the number of words and k is the length of the longest word.
+// Method 2 T = O(n*klogk) u can loop and sort in another array then compare two indexes with {}
+function getAnagrams(arr){
+    if(arr.length < 2) return [arr];
+    let result = {};
+
+    for(let i = 0; i < arr.length; i++){
+        const sortedWord = arr[i].split("").sort().join("");
+        if(result[sortedWord]){
+            result[sortedWord].push(arr[i])
+        }else{
+            result[sortedWord] = [arr[i]]
+        }
+    }
+
+    return Object.keys(result).map(r => result[r])
+}
+
+
+console.log(getAnagrams(["arc", "car", "cat", "act", "atc", "abc"]))
+console.log(getAnagrams(["abc"]))
+console.log(getAnagrams(['']))
