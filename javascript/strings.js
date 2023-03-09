@@ -67,3 +67,63 @@ console.log(isPalindrome("abxccba"))
 console.log(isPalindrome("aa"))
 console.log(isPalindrome("b"))
 console.log(isPalindrome("aA"))
+
+
+console.log("---------------Question3-------------------");
+// Method1
+// T=O(n^2)
+function longestSubstring(str){
+    const arrOfStr = str.split("");
+    let wordsLengthArr = []
+    
+    function helper(start = 0){
+        const wordAlpha = {}
+        for(let i = start; i <= arrOfStr.length; i++){
+            if(i === arrOfStr.length){
+                const wordLength = Object.keys(wordAlpha).join("").length;
+                wordsLengthArr = [...wordsLengthArr, wordLength]
+                return
+            }
+            if(wordAlpha[arrOfStr[i]]){
+                const wordLength = Object.keys(wordAlpha).join("").length;
+                wordsLengthArr = [...wordsLengthArr, wordLength]
+                return helper(start+1)
+            }
+            wordAlpha[arrOfStr[i]] = arrOfStr[i];
+        }
+    }
+    helper()
+
+    return Math.max(...wordsLengthArr);
+}
+
+console.log(longestSubstring("ppppp"))
+console.log(longestSubstring("abcbccd"))
+console.log(longestSubstring("aaaaaab"))
+console.log(longestSubstring("pqbrstbuvwpvy"))
+console.log("------------")
+// Method 2
+// T = O(n)
+function longestSubstring1(str){
+    let max = 0;
+    let start = 0;
+    const hash = {}
+    const arrOfStr = str.split("")
+
+    for(let i = 0; i < arrOfStr.length; i++){
+        const char = arrOfStr[i]
+        if(char in hash){
+            start = Math.max(start,hash[char] + 1)
+        }
+        max = Math.max(max, i - start+1)
+        // update index
+       hash[char] = i;
+    }
+
+    return max
+}
+
+console.log(longestSubstring1("ppppp"))
+console.log(longestSubstring1("abcbccd"))
+console.log(longestSubstring1("aaaaaab"))
+console.log(longestSubstring1("pqbrstbuvwpvy"))
