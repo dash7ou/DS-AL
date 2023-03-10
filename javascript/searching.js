@@ -54,3 +54,43 @@ console.log(binaryTreeRecursively([2,3,7,9,11,23,37,81,87,89], 89))
 console.log(binaryTreeRecursively([2,3,7,9,11,23,37,81,87,89], 7))
 console.log(binaryTreeRecursively([20,21,22,23], 10))
 console.log(binaryTreeRecursively([20,21,22,23], 24))
+
+console.log("---------------Question2-------------------");
+
+// T = O(logn)
+function getNumberIndex(arr, target){
+    let left = arr[0];
+    let right = arr.length -1;
+
+    while(left <= right ){
+        const middle = Math.floor((right + left) / 2 );
+        if(target === arr[middle]){
+            return middle;
+        }else if(arr[middle] >= arr[left]){
+            // so left way sorted
+            if(arr[left] <= target && target< arr[middle]){
+                // exploer L
+                right = middle - 1;
+            }else{
+                // explore R
+                left = middle + 1
+            }
+        }else if(arr[middle] ){
+            // right side is sorted
+            if( arr[middle] <= target && target < arr[right]){
+                // exploer L
+                right = middle - 1
+            }else{
+                // explore R
+                left = middle + 1
+            }
+        }
+    }
+
+    return -1
+}
+
+console.log(getNumberIndex([5,6,7,8,9,1,2,3,4], 3))
+console.log(getNumberIndex([], 10))
+console.log(getNumberIndex([1,2,3,4,5], 2))
+console.log(getNumberIndex([3,4,5,1,2], 2))
