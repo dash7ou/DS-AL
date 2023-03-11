@@ -132,3 +132,95 @@ console.log(startingEndingPositions([1,2,3,4,5], 3));
 console.log(startingEndingPositions([], 1));
 console.log(startingEndingPositions([5,7,7,8,9], 7));
 console.log(startingEndingPositions([1,2,3,4,5,5,5,5,5,5,7,8], 5));
+
+console.log("---------------Question4-------------------");
+// T = logn + logm = logn+m
+function searchInMatrix(matrix, target){
+    let top = 0;
+    let bottom = matrix.length - 1;
+    let matrixRows = matrix[0].length;
+    let arrayContainsTarget = -1
+
+    if(matrixRows === 0){
+        return false;
+    }
+
+    // binery search into matrix
+    while(top <= bottom){
+        const middle = Math.floor((top + bottom) / 2 );
+        const firstItem = matrix[middle][0]
+        const lastItem = matrix[middle][matrixRows - 1]
+        if(firstItem <= target && lastItem >= target){
+            arrayContainsTarget = middle;
+            break;
+        }
+        else if(firstItem > target){
+            bottom = middle-1
+        }
+        else if(lastItem < target){
+            top = middle+1
+        }
+    }
+
+    if(top > bottom) return false
+
+    const arr = matrix[arrayContainsTarget];
+    let left = 0;
+    let right = arr.length - 1;
+
+
+    while(left <= right){
+        const middle = Math.floor((right + left) / 2);
+        if(arr[middle] === target){
+            return true
+        }
+        if(target > arr[middle]){
+            left = middle + 1;
+        }
+        if(target < arr[middle]){
+            right = middle -1
+        }
+    }
+
+    return false
+}
+
+console.log(searchInMatrix([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+], 5))
+
+console.log(searchInMatrix([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+], 1))
+
+console.log(searchInMatrix([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+], 100))
+
+console.log(searchInMatrix([
+    [1,2,3],
+    [4,5,6],
+    [7,8,9]
+], 9))
+
+console.log(searchInMatrix([[]], 1))
+console.log(searchInMatrix([
+    [1,5,7,11],
+    [12,13,17,20],
+    [25,26,30,31],
+    [32,35,39,43],
+    [45,60,62,65],
+], 62))
+console.log(searchInMatrix([
+    [1,5,7,11],
+    [12,13,17,20],
+    [25,26,30,31],
+    [32,35,39,43],
+    [45,60,62,65],
+], 63))
