@@ -94,3 +94,41 @@ console.log(getNumberIndex([5,6,7,8,9,1,2,3,4], 3))
 console.log(getNumberIndex([], 10))
 console.log(getNumberIndex([1,2,3,4,5], 2))
 console.log(getNumberIndex([3,4,5,1,2], 2))
+
+console.log("---------------Question3-------------------");
+// T = O(logn)
+function startingEndingPositions(arr, target){
+    const left = 0;
+    const right = arr.length - 1;
+    let start = -1
+    let finish = -1
+
+    function helper(left, right){
+        const middle = Math.floor((right + left) / 2 );
+        if(left > right) return
+        if(arr[middle] === target){
+            if(middle > finish){
+                finish = middle
+            }
+            if(middle < start || start === -1){
+                start = middle
+            }
+
+            helper(left, middle - 1)
+            helper(middle + 1, right)
+        }else if(arr[middle] < target){
+            return helper(middle + 1, right)
+        }else if(arr[middle] > target){
+            return helper(left, middle - 1)
+        }
+    }
+
+    helper(left, right)
+    return [start, finish]
+}
+
+console.log(startingEndingPositions([1,2,2,2,3], 2));
+console.log(startingEndingPositions([1,2,3,4,5], 3));
+console.log(startingEndingPositions([], 1));
+console.log(startingEndingPositions([5,7,7,8,9], 7));
+console.log(startingEndingPositions([1,2,3,4,5,5,5,5,5,5,7,8], 5));
