@@ -65,3 +65,51 @@ console.log(selectionSort([7,2,3,8,1]))
 console.log(selectionSort([2,3,1,5]))
 console.log(selectionSort([1,2,3,1,4]))
 console.log(selectionSort([1]))
+
+console.log("---------------Question1 (Merge Sort)-------------------");
+// Merge Sort T = O(nlogn), S = O(n)
+// Merge T & S = O(n+m)
+// divide array and merge sorted arrays, stable sorting algo
+function mergeSort(arr){
+    if(arr.length <= 1) return arr;
+
+    const middlepoint = Math.floor(arr.length / 2);
+    const left = mergeSort(arr.slice(0, middlepoint));
+    const right = mergeSort(arr.slice(middlepoint));
+
+    return merge(left, right)
+}
+
+
+function merge(left, right){
+    let result = []
+    let i = 0, j = 0;
+
+    while(i < left.length && j < right.length){
+        if(left[i] <= right[j]){
+            result.push(left[i])
+            i++;
+        }else{
+            result.push(right[j])
+            j++;
+        }
+    }
+
+    while(i < left.length){
+        result.push(left[i])
+        i++
+    }
+
+    while(j < right.length){
+        result.push(right[j])
+        j++
+    }
+
+    return result;
+}
+
+// console.log(merge([1,2,5], [2,3,4]))
+console.log(mergeSort([7,2,3,8,1]))
+console.log(mergeSort([2,3,1,5]))
+console.log(mergeSort([1,2,3,1,4]))
+console.log(mergeSort([1]))
