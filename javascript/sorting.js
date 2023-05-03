@@ -113,3 +113,69 @@ console.log(mergeSort([7,2,3,8,1]))
 console.log(mergeSort([2,3,1,5]))
 console.log(mergeSort([1,2,3,1,4]))
 console.log(mergeSort([1]))
+
+
+console.log("---------------Question1 (Quick Sort)-------------------");
+// Quick Sort - Recursively QS Lower Size, middle - pivot
+// T = O(nlogn)
+function swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+}
+function partiton(array, start=0, end=array.length - 1){
+    let middle = Math.floor((start+end)/2)
+    swap(array, start, middle);
+
+    let pivot = array[start]
+    let i = start+1;
+    let j = end;
+
+    while(i <= j){
+        while(array[i] <= pivot){
+            i++;
+        }
+
+        while(array[j] > pivot){
+            j--;
+        }
+
+        if(i<j){
+            swap(array, i, j)
+        }
+    }
+
+    swap(array, start, j)
+    // pivot
+    return j;
+}
+
+// optomize S to be => O(logn) by clear call stack one by one.
+function quickSort(array, start=0, end=array.length - 1){
+    while(start<end){
+        const pivotIdx = partiton(array, start, end);
+        //Recursively call Quick Sort on lower sized subarray
+        if(pivotIdx-start < end-pivotIdx){
+            quickSort(array, start, pivotIdx-1);
+            start = pivotIdx + 1
+        }else{
+            quickSort(array, pivotIdx+1, end);
+            end = pivotIdx - 1;
+        }
+    }
+
+    return array
+}
+
+// in normal way S will be O(n)
+/*function quickSort(array,start=0,end=array.length-1){
+    if(start<end){
+        let pivotIdx = partition(array,start,end);
+        quickSort(array,start,pivotIdx-1);
+        quickSort(array,pivotIdx+1,end);
+    }
+    return array;
+} */
+
+console.log(quickSort([7,2,3,8,1]))
+console.log(quickSort([2,3,1,5]))
+console.log(quickSort([1,2,3,1,4]))
+console.log(quickSort([1]))
