@@ -35,38 +35,30 @@ class SingleLinkedList {
     }
 
     addAtHead(value){
+        const node = new Node(value)
         if(this.head){
-            const currentHead = {...this.head};
-            this.head = {
-                value,
-                next: currentHead
-            }
+            node.next = this.head
+            this.head = node;
         }else{
-            this.head = {
-                value,
-                next: null
-            }
-
-            this.tail = this.head;
+            this.head = node;
+            this.tail = node;
         }
+
+        this.size++;
+        return this;
     }
 
     addAtTail(value){
-        if(this.tail){
-            this.tail.next = {
-                value,
-                next: null
-            }
-
-            this.tail = this.tail.next;
+        const node = new Node(value);
+        if(!this.head){
+            this.head = node;
+            this.tail = node;
         }else{
-            this.head = {
-                value,
-                next: null
-            }
-
-            this.tail = this.head
+            this.tail.next = node;
+            this.tail = node;
         }
+        this.size++;
+        return this;
     }
 }
 
@@ -86,6 +78,6 @@ console.log(sll.get(0))
 console.log(sll.get(-1))
 console.log(sll.get(10))
 sll.addAtTail(5)
-console.log(sll.get(5))
 console.log(sll.head)
 console.log(sll.tail)
+console.log(sll.get(3))
