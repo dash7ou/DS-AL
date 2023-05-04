@@ -80,6 +80,30 @@ class SingleLinkedList {
             return this
         }
     }
+
+    deleteAtIndex(index){
+        if(index < 0 || index > this.size){
+            return -1
+        }
+
+        if(index === 0){
+            this.head = this.head.next
+            this.size--;
+            if(this.size===0){
+                this.tail = null;
+            }
+        }else if(index === this.size-1){
+            let newTail = this.get(index-1);
+            this.tail = newTail
+            newTail.next = null
+            this.size--;
+        }else{
+            let nodeAtIndex = this.get(index-1);
+            nodeAtIndex.next = nodeAtIndex.next.next;
+            this.size--;
+        }
+        return this;
+    }
 }
 
 const sll = new SingleLinkedList()
@@ -102,3 +126,7 @@ console.log(sll.head)
 console.log(sll.tail)
 console.log(sll.get(3))
 console.log(JSON.stringify(sll.addAtIndex(1,9)))
+
+console.log(JSON.stringify(sll.deleteAtIndex(1)))
+console.log(JSON.stringify(sll.deleteAtIndex(0)))
+console.log(JSON.stringify(sll.deleteAtIndex(2)))
