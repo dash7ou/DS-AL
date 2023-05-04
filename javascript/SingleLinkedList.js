@@ -21,7 +21,7 @@ class SingleLinkedList {
             }
 
             if(i === index){
-                return node.value
+                return node
             }
 
             if(node.next === null){
@@ -60,6 +60,26 @@ class SingleLinkedList {
         this.size++;
         return this;
     }
+
+    addAtIndex(index,value){
+        if(index < 0 || index > this.size){
+            return -1
+        }
+
+        const node = new Node(value);
+        if(index === 0){
+            this.addAtHead(value)
+        }else if(index === this.size -1){
+            this.addAtTail(value)
+        }else{
+            let nodeAtIndex = this.get(index-1);
+            const oldNodeNext = nodeAtIndex.next;
+            nodeAtIndex.next = node;
+            node.next = oldNodeNext
+            this.size++
+            return this
+        }
+    }
 }
 
 const sll = new SingleLinkedList()
@@ -81,3 +101,4 @@ sll.addAtTail(5)
 console.log(sll.head)
 console.log(sll.tail)
 console.log(sll.get(3))
+console.log(JSON.stringify(sll.addAtIndex(1,9)))
