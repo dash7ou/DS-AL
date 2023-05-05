@@ -167,7 +167,7 @@ sllD.addAtHead(1)
 const clearSLL = removeDuplicatedNumberFromSingleLinkedList(sllD)
 console.log(JSON.stringify(clearSLL))
 
-console.log("---------------Question25 (Reverse SLL )-------------------");
+console.log("---------------Question25 ( Reverse SLL )-------------------");
 // T = O(n), S=O(1)
 function reverseSingleLinkedList(sll){
     let current = sll.head
@@ -191,3 +191,47 @@ function reverseSingleLinkedList(sll){
 
 const reversedSLL = reverseSingleLinkedList(clearSLL);
 console.log(JSON.stringify(reversedSLL))
+
+console.log("---------------Question25 ( Cycle Detection )-------------------");
+// using Floyds and Tortoise Algo T = O(n), S = O(1) if u use normal way S = O(n) because u will need to use hash table.
+function checkLoop(head) {
+    if(!head) return null;
+    if(!head.next) return null;
+
+    let hare = head;
+    let tortoise = head
+    while(hare && hare.next){
+        hare = hare.next.next;
+        tortoise = tortoise.next;
+
+        if(hare === tortoise) break;
+    }
+
+    if(hare !== tortoise) return null;
+    // where cycle begain
+    let pointer = head
+    while(pointer!== tortoise){
+        pointer = pointer.next
+        tortoise = tortoise.next
+    }
+
+    return tortoise
+}
+
+const one = new Node(1)
+const two = new Node(2)
+const three = new Node(3)
+const four = new Node(4)
+const five = new Node(5)
+const six = new Node(6)
+
+one.next = two
+two.next = three
+three.next = four
+four.next = five
+five.next = six
+six.next = two
+
+let head = one
+
+console.log(checkLoop(head))
