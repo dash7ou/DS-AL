@@ -136,8 +136,8 @@ console.log("---------------Question25 (delete duplicates)-------------------");
 
 // T = O(n), S = O(1)
 function removeDuplicatedNumberFromSingleLinkedList(linkedList){
+    let current = linkedList.head;
     for(let i =0; i < linkedList.size; i++){
-        let current = linkedList.get(i);
         while(current.value === current?.next?.value){
             current.next = current.next.next
             if(i === linkedList.size-2){
@@ -145,6 +145,7 @@ function removeDuplicatedNumberFromSingleLinkedList(linkedList){
             }
             linkedList.size--;
         }
+        current=current.next
     }
 
     return linkedList;
@@ -163,4 +164,30 @@ sllD.addAtHead(2)
 sllD.addAtHead(1)
 sllD.addAtHead(1)
 
-console.log(JSON.stringify(removeDuplicatedNumberFromSingleLinkedList(sllD)))
+const clearSLL = removeDuplicatedNumberFromSingleLinkedList(sllD)
+console.log(JSON.stringify(clearSLL))
+
+console.log("---------------Question25 (Reverse SLL )-------------------");
+// T = O(n), S=O(1)
+function reverseSingleLinkedList(sll){
+    let current = sll.head
+    let itemBefore = null
+    for(let i=0; i < sll.size; i++){
+        if(i === 0){
+            sll.tail = current
+        }
+        const itemNextOld = current.next
+        const oldCurrent = current
+        
+        current.next = itemBefore
+        
+        current = itemNextOld
+        itemBefore = oldCurrent
+    }
+
+    sll.head = itemBefore
+    return sll
+}
+
+const reversedSLL = reverseSingleLinkedList(clearSLL);
+console.log(JSON.stringify(reversedSLL))
