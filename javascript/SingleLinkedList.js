@@ -130,3 +130,37 @@ console.log(JSON.stringify(sll.addAtIndex(1,9)))
 console.log(JSON.stringify(sll.deleteAtIndex(1)))
 console.log(JSON.stringify(sll.deleteAtIndex(0)))
 console.log(JSON.stringify(sll.deleteAtIndex(2)))
+
+
+console.log("---------------Question25 (delete duplicates)-------------------");
+
+// T = O(n), S = O(1)
+function removeDuplicatedNumberFromSingleLinkedList(linkedList){
+    for(let i =0; i < linkedList.size; i++){
+        let current = linkedList.get(i);
+        while(current.value === current?.next?.value){
+            current.next = current.next.next
+            if(i === linkedList.size-2){
+                linkedList.tail = current
+            }
+            linkedList.size--;
+        }
+    }
+
+    return linkedList;
+}
+
+const sllD = new SingleLinkedList();
+sllD.addAtHead(6)
+sllD.addAtHead(5)
+sllD.addAtHead(5)
+sllD.addAtHead(4)
+sllD.addAtHead(4)
+sllD.addAtHead(4)
+sllD.addAtHead(3)
+sllD.addAtHead(2)
+sllD.addAtHead(2)
+sllD.addAtHead(1)
+sllD.addAtHead(1)
+
+console.log(JSON.stringify(removeDuplicatedNumberFromSingleLinkedList(sllD)))
