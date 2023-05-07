@@ -263,6 +263,7 @@ function getDuplicate(nums){
 console.log(getDuplicate([4,3,1,2,3]))
 console.log(getDuplicate([5,4,3,1,2,5]))
 console.log("---------------Question31 ( Add 2 numbers )-------------------");
+// T = (O(max(n,m))), S = (O(max(m,n)))
 function addTwoNumberAsSLL(sll1, sll2) {
     let p1 = sll1
     let p2 = sll2
