@@ -235,3 +235,30 @@ six.next = two
 let head = one
 
 console.log(checkLoop(head))
+
+console.log("---------------Question26 ( Construct SLL )-------------------");
+// T=O(n), S=O(1)
+function getDuplicate(nums){
+    let hare = 0;
+    let tortoise = 0;
+    let pointer = 0
+
+    while(true){
+        hare = nums[nums[hare]]
+        tortoise = nums[tortoise]
+
+        if(hare === tortoise){
+            break
+        }
+    }
+
+    while(pointer !== tortoise){
+        pointer = nums[pointer]
+        tortoise = nums[tortoise]
+    }
+
+    return pointer
+}
+
+console.log(getDuplicate([4,3,1,2,3]))
+console.log(getDuplicate([5,4,3,1,2,5]))
