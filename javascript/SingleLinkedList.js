@@ -132,7 +132,7 @@ console.log(JSON.stringify(sll.deleteAtIndex(0)))
 console.log(JSON.stringify(sll.deleteAtIndex(2)))
 
 
-console.log("---------------Question25 (delete duplicates)-------------------");
+console.log("---------------Question27 (delete duplicates)-------------------");
 
 // T = O(n), S = O(1)
 function removeDuplicatedNumberFromSingleLinkedList(linkedList){
@@ -167,7 +167,7 @@ sllD.addAtHead(1)
 const clearSLL = removeDuplicatedNumberFromSingleLinkedList(sllD)
 console.log(JSON.stringify(clearSLL))
 
-console.log("---------------Question25 ( Reverse SLL )-------------------");
+console.log("---------------Question28 ( Reverse SLL )-------------------");
 // T = O(n), S=O(1)
 function reverseSingleLinkedList(sll){
     let current = sll.head
@@ -192,7 +192,7 @@ function reverseSingleLinkedList(sll){
 const reversedSLL = reverseSingleLinkedList(clearSLL);
 console.log(JSON.stringify(reversedSLL))
 
-console.log("---------------Question25 ( Cycle Detection )-------------------");
+console.log("---------------Question29 ( Cycle Detection )-------------------");
 // using Floyds and Tortoise Algo T = O(n), S = O(1) if u use normal way S = O(n) because u will need to use hash table.
 function checkLoop(head) {
     if(!head) return null;
@@ -236,7 +236,7 @@ let head = one
 
 console.log(checkLoop(head))
 
-console.log("---------------Question26 ( Construct SLL )-------------------");
+console.log("---------------Question30 ( find duplicate number )-------------------");
 // T=O(n), S=O(1)
 function getDuplicate(nums){
     let hare = 0;
@@ -262,3 +262,63 @@ function getDuplicate(nums){
 
 console.log(getDuplicate([4,3,1,2,3]))
 console.log(getDuplicate([5,4,3,1,2,5]))
+console.log("---------------Question31 ( Add 2 numbers )-------------------");
+function addTwoNumberAsSLL(sll1, sll2) {
+    let p1 = sll1
+    let p2 = sll2
+
+    let p = null;
+    let result = null;
+    let carryForward = 0;
+    while(true){
+        if(sll1 === null && sll2 === null){
+            return 0
+        }
+
+        if(!p1?.value && !p2?.value && !carryForward){
+            return result
+        }
+        
+        const sum = (p1?.value || 0 ) + (p2?.value || 0) + carryForward
+        if(sum === 0){
+            return result
+        }
+
+        const num = sum % 10;
+        carryForward = Math.floor(sum / 10);
+
+        if(!result){
+            result = new Node(num)
+            p = result
+        }else{
+            p.next = new Node(num)
+            p = p.next
+        }
+
+        p1 = p1?.next
+        p2 = p2?.next
+    }
+
+    
+}
+
+
+let head1 = new Node(3)
+head1.next = new Node(2)
+head1.next.next = new Node(1)
+
+const head2 = new Node(1)
+head2.next = new Node(5)
+head2.next.next = new Node(7)
+
+console.log(JSON.stringify(addTwoNumberAsSLL(head1, head2)))
+
+let head3 = new Node(8)
+head3.next = new Node(2)
+head3.next.next = new Node(6)
+
+let head4 = new Node(7)
+head4.next = new Node(6)
+head4.next.next = new Node(5)
+
+console.log(JSON.stringify(addTwoNumberAsSLL(head3, head4)))
