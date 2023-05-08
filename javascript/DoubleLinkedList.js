@@ -17,23 +17,21 @@ class DoublyLinkedList{
         this.tail = null
     }
 
+    // O(1)
     insertB(nodePosition,nodeInsert){
         if(this.head===nodeInsert && this.tail === nodeInsert){
             return;
         }
-
-        this.remove(nodeInsert)
-
-        const npPrev = nodePosition.prev
-        nodeInsert.next = nodePosition
-        nodeInsert.prev = npPrev
-        nodePosition.prev = nodeInsert
+        this.remove(nodeInsert);
+        nodeInsert.prev = nodePosition.prev;
+        nodeInsert.next = nodePosition;
 
         if(nodePosition === this.head){
-            this.head = nodeInsert
+            this.head = nodeInsert;
         }else{
-            npPrev.next = nodeInsert
+            nodePosition.prev.next =nodeInsert;
         }
+        nodePosition.prev=nodeInsert;
     }
 
     // O(1)
