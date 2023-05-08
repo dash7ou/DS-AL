@@ -47,6 +47,36 @@ class DoublyLinkedList{
 
         return this
     }
+
+    removeByValue(value){
+        let current = this.head;
+        let oldCurrent = null;
+        while(current){
+            if(current.val === value){
+                if(current === this.head){
+                    this.head = current.next
+                }else{
+                    current.prev.next = current.next
+                }
+
+                if(current === this.tail){
+                    this.tail = this.tail.prev
+                }else{
+                    current.next.prev = current.prev
+                }
+
+                oldCurrent = current
+                // current = current.next
+
+            }
+            current = current.next
+            if(oldCurrent){
+                oldCurrent.prev = null
+                oldCurrent.next = null
+                oldCurrent = null
+            }
+        }
+    }
 }
 
 //null - 1 - 2 - 3 - 4 - 5 - null
@@ -74,3 +104,4 @@ console.log(linkedListDoubly.remove(five))
 // linkedListDoubly.insertB(two,three);
 
 linkedListDoubly.insertB(three,seven);
+linkedListDoubly.removeByValue(7)
