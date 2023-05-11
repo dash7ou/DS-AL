@@ -60,3 +60,71 @@ console.log(JSON.stringify(queue))
 
 
 console.log("---------------Question37 ( Implement Queue with Stack )-------------------");
+
+class QueueWithTwoStacks {
+    inStack = []
+    outStack = []
+
+    constructor(){}
+
+    push(value){
+        this.inStack.push(value)
+    }
+
+    pop(){
+        if(this.outStack.length === 0){
+            while(this.inStack.length > 0){
+                this.outStack.push(this.inStack.pop())
+            }
+        }
+
+        return this.outStack.pop() || null
+    }
+
+    peek(){
+        if(this.outStack.length === 0){
+            while(this.inStack.length > 0){
+                this.outStack.push(this.inStack.pop())
+            }
+        }
+
+        return this.outStack[this.outStack.length-1] || null;
+    }
+
+    empty(){
+        let inStackLength = this.inStack.length;
+        let outStackLength = this.outStack.length;
+        // if both are 0, then return true
+        return !inStackLength && !outStackLength;
+    }
+}
+
+
+const qs = new QueueWithTwoStacks()
+console.log(qs.pop())
+qs.push(10)
+console.log(qs.pop())
+console.log(qs)
+
+qs.push(10)
+qs.push(20)
+qs.push(30)
+
+console.log(qs.pop())
+qs.push(40)
+console.log(qs.pop())
+console.log(qs)
+console.log(qs.pop())
+console.log(qs.pop())
+console.log(qs)
+
+console.log(qs.peek())
+qs.push(10)
+qs.push(20)
+qs.push(30)
+console.log(qs.peek())
+console.log(qs.empty())
+
+
+
+
