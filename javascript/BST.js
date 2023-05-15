@@ -12,7 +12,32 @@ class BinarySearchTree {
         this.root = null
     }
 
+    insert(value){
+        const node = new Node(value)
+        if(this.root === null){
+            this.root = node
+            return this
+        }
 
+        let current = this.root
+        while(true){
+            if(value >= current.value){
+                if(!current.right){
+                    current.right = node
+                    return this
+                }
+                current = current.right
+            }else{
+                if(!current.left){
+                    current.left = node
+                    return this
+                }
+
+                current = current.left
+            }
+        }
+        
+    }
 }
 
 
@@ -26,3 +51,17 @@ class BinarySearchTree {
 //                  1  3   25 29  60
 
 let bst = new BinarySearchTree();
+bst.insert(20);
+bst.insert(6);
+bst.insert(35);
+console.log(bst)
+bst.insert(3);
+bst.insert(8);
+bst.insert(27);
+bst.insert(55);
+bst.insert(1);
+bst.insert(3);
+bst.insert(25);
+bst.insert(29);
+bst.insert(60);
+console.log(JSON.stringify(bst))
