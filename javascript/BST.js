@@ -62,6 +62,58 @@ class BinarySearchTree {
             }
         }
     }
+
+    // Successor style: replace it with smallest value in right subtree
+    remove(value, current=this.root, parent=null){
+        if(!this.root) return null
+        while(current){
+            if(value < current.value){
+                parent=current
+                current=current.left
+            }else if(value > current.value){
+                parent = current
+                current = current.right
+            }else{
+                // found it
+                // node to be deleted has two child
+                if(current.left && current.right){
+                    current.value = this.getMin(current.right).value
+                    this.remove(current.value, current.right, current)
+                }else if(parent === null){
+                    // here check if root has only left / right / nothing
+                    if(current.left){
+                        current.value=current.left.value
+                        current.left  = current.left.left
+                        current.right = current.left.right
+                    }else if(current.right){
+                        current.value = current.right.value
+                        current.right = current.right.right
+                        current.left = current.right.left
+                    }else{
+                        this.root = null
+                    }
+                }
+                // edit to the parent if it left or right that node we want to remove
+                else if(current === parent.left){
+                    parent.left = current.left || current.right
+                }else if(current === parent.right){
+                    parent.right = current.left || current.right
+                }
+
+                break;
+            }
+        }
+
+        return this;
+    }
+
+    getMin(node){
+        while(node.left){
+            node = node.left
+        }
+
+        return node
+    }
 }
 
 
@@ -93,3 +145,8 @@ console.log(bst.find(10))
 console.log(bst.find(20))
 console.log(bst.find(55))
 console.log(bst.find(1))
+
+console.log(JSON.stringify(bst.remove(60)))
+console.log(JSON.stringify(bst.remove(29)))
+console.log(JSON.stringify(bst.remove(27)))
+console.log(JSON.stringify(bst.remove(20)))
