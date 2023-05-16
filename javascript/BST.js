@@ -1,3 +1,5 @@
+console.log("--------------- Question38 ( BST ) -------------------");
+console.log("--------------- Question39 ( Traverse BST ) -------------------");
 class Node {
     constructor(value){
         this.value = value
@@ -114,17 +116,40 @@ class BinarySearchTree {
 
         return node
     }
+
+    breadFirst(){
+        // push, shift
+        let queue = [];
+        let result = [];
+
+        // let current;
+        queue.push(this.root)
+        while(queue.length > 0){
+            const current = queue.shift()
+            console.log(current)
+            if(current.left){
+                queue.push(current.left)
+            }
+            if(current.right){
+                queue.push(current.right)
+            }
+
+            result.push(current.value)
+        }
+
+        return result
+    }
 }
 
 
 
-//                     20
-//                    /   \
-//                    6    35
-//                   / \   /  \ 
-//                   3  8  27  55
-//                  / \    / \   \
-//                  1  3   25 29  60
+//                      20
+//                    /    \
+//                    6     35
+//                   / \    /  \ 
+//                  3   8  27   55
+//                 / \     / \   \
+//                 1   3  25  29  60
 
 let bst = new BinarySearchTree();
 bst.insert(20);
@@ -146,7 +171,9 @@ console.log(bst.find(20))
 console.log(bst.find(55))
 console.log(bst.find(1))
 
-console.log(JSON.stringify(bst.remove(60)))
-console.log(JSON.stringify(bst.remove(29)))
-console.log(JSON.stringify(bst.remove(27)))
-console.log(JSON.stringify(bst.remove(20)))
+// console.log(JSON.stringify(bst.remove(60)))
+// console.log(JSON.stringify(bst.remove(29)))
+// console.log(JSON.stringify(bst.remove(27)))
+// console.log(JSON.stringify(bst.remove(20)))
+
+console.log(bst.breadFirst())
