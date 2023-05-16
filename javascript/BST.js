@@ -211,7 +211,7 @@ console.log(bst.find(20))
 console.log(bst.find(55))
 console.log(bst.find(1))
 
-// console.log(JSON.stringify(bst.remove(60)))
+console.log(JSON.stringify(bst.remove(60)))
 // console.log(JSON.stringify(bst.remove(29)))
 // console.log(JSON.stringify(bst.remove(27)))
 // console.log(JSON.stringify(bst.remove(20)))
