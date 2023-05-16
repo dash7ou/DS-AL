@@ -118,15 +118,12 @@ class BinarySearchTree {
     }
 
     breadFirst(){
-        // push, shift
         let queue = [];
         let result = [];
 
-        // let current;
         queue.push(this.root)
         while(queue.length > 0){
             const current = queue.shift()
-            console.log(current)
             if(current.left){
                 queue.push(current.left)
             }
@@ -138,6 +135,49 @@ class BinarySearchTree {
         }
 
         return result
+    }
+    // left, current, right
+    dsfInOrder(){
+        if(!this.root) return []
+        const arr = []
+        let current = this.root
+
+        function traverse(node){
+            if(node.left) traverse(node.left)
+            arr.push(node.value)
+            if(node.right) traverse(node.right)
+        }
+        traverse(current)
+        return arr
+    }
+
+    // current, left, right
+    dsfPreOrder(){
+        if(!this.root) return []
+        const arr = []
+        let current = this.root
+
+        function traverse(node){
+            arr.push(node.value)
+            if(node.left) traverse(node.left)
+            if(node.right) traverse(node.right)
+        }
+        traverse(current)
+        return arr
+    }
+    // left, right, current
+    dsfPostOrder(){
+        if(!this.root) return []
+        const arr = []
+        let current = this.root
+
+        function traverse(node){
+            if(node.left) traverse(node.left)
+            if(node.right) traverse(node.right)
+            arr.push(node.value)
+        }
+        traverse(current)
+        return arr
     }
 }
 
@@ -177,3 +217,6 @@ console.log(bst.find(1))
 // console.log(JSON.stringify(bst.remove(20)))
 
 console.log(bst.breadFirst())
+console.log(bst.dsfInOrder())
+console.log(bst.dsfPreOrder())
+console.log(bst.dsfPostOrder())
