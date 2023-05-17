@@ -220,3 +220,68 @@ console.log(bst.breadFirst())
 console.log(bst.dsfInOrder())
 console.log(bst.dsfPreOrder())
 console.log(bst.dsfPostOrder())
+
+
+console.log("--------------- Question40 ( Level Order traversal ) -------------------");
+class LevelOrderTree{
+    constructor(){
+        this.root = null
+    }
+
+    insert(arr){
+        let i = 0;
+        if(arr.length === 0) return 0
+        if(!this.root){
+            this.root = new Node(arr[0])
+            i++
+            if(arr.length === i) return this
+        }
+
+        const queue = [this.root]
+        while(queue.length){
+            const current = queue.shift()
+            if(current.left === null && current.right === null){
+                if(arr[i]){
+                    current.left = new Node(arr[i])
+                }
+                i++
+                if(arr[i]){
+                    current.right = new Node(arr[i])
+                }
+                i++
+                if(i === arr.length) return this
+                if(current.left) queue.push(current.left)
+                if(current.right) queue.push(current.right)
+            }
+        }
+
+        return this
+    }
+
+    traverse(){
+        if(this.root === null) return null
+
+        const queue = []
+        const arr = []
+        queue.push(this.root)
+        while(queue.length){
+            const arrLevel = []
+            let i = 1
+            const count = queue.length
+            while(i <= count){
+                const current = queue.shift()
+                arrLevel.push(current.value)
+                if(current.left) queue.push(current?.left)
+                if(current.right) queue.push(current?.right)
+                i++;
+            }
+            arr.push(arrLevel)
+        }
+
+        return arr;
+    }
+}
+
+const tree = new LevelOrderTree()
+console.log(JSON.stringify(tree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null])));
+console.log(tree.traverse())
