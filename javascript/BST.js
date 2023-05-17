@@ -258,6 +258,7 @@ class LevelOrderTree{
         return this
     }
 
+    // T = O(n), S=O(n)
     traverse(){
         if(this.root === null) return null
 
