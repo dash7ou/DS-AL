@@ -286,3 +286,34 @@ class LevelOrderTree{
 const tree = new LevelOrderTree()
 console.log(JSON.stringify(tree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null])));
 console.log(tree.traverse())
+
+console.log("--------------- Question40 ( Left/Right View of binary tree ) -------------------");
+
+function rightView(tree){
+    if(tree === null) return []
+
+    const queue = []
+    const arr = []
+    queue.push(tree)
+
+    while(queue.length){
+        let i = 0;
+        const count = queue.length
+        let current;
+        while(i < count){
+            current = queue.shift()
+            if(current.left) queue.push(current?.left)
+            if(current.right) queue.push(current?.right)
+            i++;
+        }
+        arr.push(current.value)
+    }
+
+    return arr
+}
+
+
+const viewTree = new LevelOrderTree();
+viewTree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null]);
+console.log(rightView(tree.root));
+// leftView(tree.root);
