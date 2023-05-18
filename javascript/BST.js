@@ -313,7 +313,31 @@ function rightView(tree){
 }
 
 
+function leftView(tree){
+    if(tree === null) return []
+
+    const queue = []
+    const arr = []
+    queue.push(tree)
+
+    while(queue.length){
+        let i = 0;
+        const count = queue.length
+        let firstCurrent;
+        while(i < count){
+            const current = queue.shift()
+            if(i === 0) firstCurrent = current
+            if(current.left) queue.push(current?.left)
+            if(current.right) queue.push(current?.right)
+            i++;
+        }
+        arr.push(firstCurrent.value)
+    }
+
+    return arr
+}
+
 const viewTree = new LevelOrderTree();
 viewTree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null]);
 console.log(rightView(tree.root));
-// leftView(tree.root);
+console.log(leftView(tree.root));
