@@ -288,7 +288,7 @@ console.log(JSON.stringify(tree.insert([7,11,1,null,7,2,8,null,null,null,3,null,
 console.log(tree.traverse())
 
 console.log("--------------- Question40 ( Left/Right View of binary tree ) -------------------");
-
+// T = O(n), S = O(n)
 function rightView(tree){
     if(tree === null) return []
 
