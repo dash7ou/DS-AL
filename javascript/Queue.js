@@ -241,3 +241,64 @@ console.log(obj2.Rear())
 console.log(obj2.Rear())
 obj2.deQueue()
 
+
+console.log("---------------( Number of Islands )-------------------");
+
+var numIslands = function(grid) {
+    if (grid.length === 0 && grid[0].length === 0) return 0
+
+    const rowLength = grid.length;
+    const colLength = grid[0].length;
+    let isLands = 0;
+    // const visited = new Array(rowLength).fill().map(r => new Array(colLength).fill(false))
+
+    function dfs(r, c){
+        const queue = []
+        queue.push([r, c])
+        grid[r][c] = true
+
+        while(queue.length){
+            let [r, c] = queue.pop()
+            const directions = [[1,0], [-1,0], [0,1], [0,-1]]
+            for(let d of directions){
+                let [dr, dc] = d;
+                const rD = r + dr;
+                const cD = c + dc;
+                if(rD >= 0 && rD >=0 && rD < rowLength && cD < colLength && grid[rD][cD] === "1"){
+                    queue.push([rD, cD])
+                    grid[rD][cD] = true
+                }
+            }
+        }
+    }
+
+    for(let r=0; r<rowLength; r++){
+        for(let c=0; c<colLength; c++){
+            if(grid[r][c] === '1'){
+                dfs(r, c)
+                isLands++;
+            }
+        }
+    }
+
+    return isLands
+};
+
+const input = [
+    ["1","1","1","1","0"],
+    ["1","1","0","1","0"],
+    ["1","1","0","0","0"],
+    ["0","0","0","0","0"]
+]
+
+
+console.log(numIslands(input))
+
+
+console.log(numIslands(
+    [
+        ["1","1","1"],
+        ["0","1","0"],
+        ["1","1","1"]
+    ]
+))
