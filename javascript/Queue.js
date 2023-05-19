@@ -126,5 +126,118 @@ console.log(qs.peek())
 console.log(qs.empty())
 
 
+console.log("---------------( Circular Queue )-------------------");
 
+class MyCircularQueue {
+    constructor(k) {
+        this.storage = new Array(k);
+        this.length = k
+        this.head = null
+        this.tail = null;
+    }
+
+    enQueue(value){
+        if(this.isFull()) return false
+        if(this.isEmpty()){
+            this.head = 0;
+            this.tail = 0;
+            this.storage[this.tail] = value
+            return true     
+        }
+        
+        if(this.tail === this.length - 1) this.tail = -1
+        this.tail++;
+        this.storage[this.tail] = value
+        return true   
+    }
+
+    deQueue() {
+        if(this.isEmpty()) return false
+        this.storage[this.head] = null
+        this.head++
+        if(this.head === this.length){
+            if(!this.isEmpty()){
+                this.head = 0
+            }else{
+                this.head = null
+                this.tail = null
+            }
+        }
+
+        return true
+    }
+
+    Front(){
+        return !this.storage[this.head] && this.storage[this.head] !== 0 ? -1 : this.storage[this.head]
+    }
+
+    Rear() {
+        return !this.storage[this.tail] && this.storage[this.tail] !== 0 ? -1 : this.storage[this.tail]
+    }
+
+    isEmpty() {
+        let i = 0;
+        let isEmp = true
+        while(i < this.length){
+            if(this.storage[i] || this.storage[i] === 0){
+                isEmp = false
+                break;
+            }
+            i++
+        }
+        
+        return isEmp;
+    }
+
+    isFull() {
+        let i = 0;
+        let isF = true
+        while(i < this.length){
+            if(!this.storage[i] && this.storage[i] !== 0){
+                isF = false
+                break
+            }
+            i++
+        }
+        return isF;
+    }
+}
+
+// Your MyCircularQueue object will be instantiated and called as such:
+var obj = new MyCircularQueue(3)
+// var param_1 = obj.enQueue(10)
+obj.enQueue(20)
+obj.enQueue(30)
+obj.enQueue(40)
+console.log(obj.enQueue(40))
+console.log(obj.deQueue())
+console.log(obj.deQueue())
+obj.enQueue(5)
+obj.enQueue(3)
+console.log(obj.enQueue(3))
+// console.log(obj.deQueue())
+// console.log(obj.deQueue())
+console.log(obj.storage)
+console.log(obj.Front())
+console.log(obj.Rear())
+// var param_5 = 
+// var param_6 = 
+
+console.log(obj.isEmpty(), obj.isFull())
+console.log("---------------------")
+var obj2 = new MyCircularQueue(8)
+obj2.enQueue(3)
+obj2.enQueue(9)
+obj2.enQueue(5)
+obj2.enQueue(0)
+console.log(obj2.storage)
+obj2.deQueue()
+console.log(obj2.storage)
+obj2.deQueue()
+console.log(obj2.storage)
+obj.isEmpty()
+obj.isEmpty()
+console.log(obj2.Rear())
+console.log(obj2.Rear())
+obj2.deQueue()
 
