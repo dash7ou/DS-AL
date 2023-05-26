@@ -114,3 +114,73 @@ const isIsomorphic2 = (str1, str2) => {
 console.log(isIsomorphic2("green", "abccd"));
 console.log(isIsomorphic2("green", "abcxd"));
 console.log(isIsomorphic2("green", "abccc"));
+
+console.log("---------------------------------------")
+
+var twoSum = function(nums, target) {
+  const remainsToTarget = new Map();
+
+  for(let i=0; i < nums.length; i++){
+      const remains = target - nums[i]
+      if(remainsToTarget.has(remains)){
+          return [remainsToTarget.get(remains).get("index"), i]
+      }
+      const numDetails = new Map([["index", i], ["remains", remains]])
+      remainsToTarget.set(nums[i], numDetails)
+  }
+};
+
+console.log("---------------------------------------")
+
+var isAnagram = function(s, t) {
+  const tMap = new Map();
+  const sMap = new Map();
+  for(let i = 0; i < t.length; i++){
+    tMap.set(t.charAt(i), true)
+  }
+
+  for(let i = 0; i < s.length; i++){
+    sMap.set(s.charAt(i), true)
+  }
+
+  let i = 0
+  while(i < s.length){
+      if(!tMap.get(s.charAt(i))){
+          return false
+      }
+      i++
+  }
+
+  let j = 0;
+  while(j < t.length){
+    if(!sMap.get(t.charAt(j))){
+        return false
+    }
+    j++
+}
+
+  return true
+};
+
+console.log(isAnagram("a", "ba"))
+
+console.log("---------------------------------------")
+
+var uniqueOccurrences = function(arr) {
+  const map = {}
+
+  for(let num of arr){
+      console.log(map)
+      if(map[num]){
+          map[num] = map[num] + 1;
+      }else{
+          map[num] = 1
+      }
+  }
+
+  const result = Object.values(map)
+  return result.length === [...new Set(result)].length
+};
+
+
+console.log(uniqueOccurrences([1,2,2,1,1,3]))
