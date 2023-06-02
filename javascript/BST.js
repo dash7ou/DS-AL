@@ -368,3 +368,22 @@ tTree.insert([1,2,3,4,null,null,5,6,null,7]);
 console.log(JSON.stringify(tTree.traverse()))
 console.log(JSON.stringify(invertIterative(tTree.root)));
 console.log(JSON.stringify(tTree.traverse()))
+
+
+// reversive solution T=O(n), S=O(height)
+function invertRecersive(tree){
+    if(tree === null) return
+
+    const temp = tree.right;
+    tree.right = tree.left;
+    tree.left = temp;
+
+    invertRecersive(tree.left)
+    invertRecersive(tree.right)
+    return tree
+}
+const tRTree = new LevelOrderTree();
+tRTree.insert([1,2,3,4,null,null,5,6,null,7]);
+console.log(JSON.stringify(tRTree.traverse()))
+console.log(JSON.stringify(invertRecersive(tRTree.root)));
+console.log(JSON.stringify(tRTree.traverse()));
