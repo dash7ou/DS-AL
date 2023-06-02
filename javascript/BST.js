@@ -287,7 +287,7 @@ const tree = new LevelOrderTree()
 console.log(JSON.stringify(tree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null])));
 console.log(tree.traverse())
 
-console.log("--------------- Question40 ( Left/Right View of binary tree ) -------------------");
+console.log("--------------- Question41 ( Left/Right View of binary tree ) -------------------");
 // T = O(n), S = O(n)
 function rightView(tree){
     if(tree === null) return []
@@ -341,3 +341,30 @@ const viewTree = new LevelOrderTree();
 viewTree.insert([7,11,1,null,7,2,8,null,null,null,3,null,null,5,null]);
 console.log(rightView(tree.root));
 console.log(leftView(tree.root));
+
+
+console.log("--------------- Question42 ( Invert Binary Tree ) -------------------");
+
+// iterative solution T= O(n), S = O(n)
+function invertIterative(tree){
+    if(tree === null) return
+
+    const queue = [tree];
+    while(queue.length){
+        const current = queue.shift();
+        let temp = current.right;
+        current.right = current.left;
+        current.left = temp;
+        if(current.left) queue.push(current.left);
+        if(current.right) queue.push(current.right);
+    }
+
+    return tree;
+}
+
+
+const tTree = new LevelOrderTree();
+tTree.insert([1,2,3,4,null,null,5,6,null,7]);
+console.log(JSON.stringify(tTree.traverse()))
+console.log(JSON.stringify(invertIterative(tTree.root)));
+console.log(JSON.stringify(tTree.traverse()))
