@@ -465,7 +465,7 @@ dtree.insert([1,3,2,7,4,null,null,8,null,null,5,9,null,null,6]);
 console.log(diamterBinaryTree(dtree.root));
 
 console.log("--------------- Question44 ( Convert Sorted Array to Binary Search Tree ) -------------------");
-
+// T = O(n), S = O(n)
 function buildBSTfromSortedArray(arr, left=0,right =arr.length-1){
     // root is middle point
     if(left>right) return null;
@@ -481,3 +481,26 @@ function buildBSTfromSortedArray(arr, left=0,right =arr.length-1){
 
 
 console.log(buildBSTfromSortedArray([1,2,3,4,5]));
+
+
+console.log("--------------- Question45 ( Validate BST ) -------------------");
+// T = O(n), S = O(max deep)
+function checkIfValidBST(root){
+    function helper(node, min, max){
+        if(node===null) return true;
+
+        if(node.value <= min || node.value >= max) return false;
+        const isLeftBST  = helper(node.left, min, node.value)
+        const isRighBST = helper(node.right, node.value, max)
+
+        return isLeftBST && isRighBST;
+    }
+    return helper(root,-Infinity,Infinity);
+}
+
+
+
+
+const vbstree = new BinaryTree();
+vbstree.insert([10,5,20,3,7,15,30,null,4,null,null,null,17,null,null,null,null,null,18]);
+console.log(checkIfValidBST(vbstree.root))
