@@ -463,3 +463,21 @@ function diamterBinaryTree(root){
 const dtree = new BinaryTree();
 dtree.insert([1,3,2,7,4,null,null,8,null,null,5,9,null,null,6]);
 console.log(diamterBinaryTree(dtree.root));
+
+console.log("--------------- Question44 ( Convert Sorted Array to Binary Search Tree ) -------------------");
+
+function buildBSTfromSortedArray(arr, left=0,right =arr.length-1){
+    // root is middle point
+    if(left>right) return null;
+
+    const middle = Math.round((left + right) / 2);
+    const node = new Node(arr[middle])
+    
+    node.left = buildBSTfromSortedArray(arr, left, middle-1)
+    node.right = buildBSTfromSortedArray(arr, middle+1, right);
+
+    return node
+}
+
+
+console.log(buildBSTfromSortedArray([1,2,3,4,5]));
