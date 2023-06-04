@@ -387,3 +387,79 @@ tRTree.insert([1,2,3,4,null,null,5,6,null,7]);
 console.log(JSON.stringify(tRTree.traverse()))
 console.log(JSON.stringify(invertRecersive(tRTree.root)));
 console.log(JSON.stringify(tRTree.traverse()));
+
+
+console.log("--------------- Question43 ( Diameter of binary tree ) -------------------");
+/**
+ * diameter at node = hight(left) + hight(right) + 1 + 1
+ * height at node = max(LH, RH) + 1
+ * T = O(n), S = O(n)
+ */
+
+
+class BinaryTree{
+    constructor(){
+        this.root = null;
+    }
+    insert(array){
+        if(array.length===0) return;
+        let i=0;
+        //if root is null
+        if(!this.root){
+            if(array[0]===null)return;
+            else{
+                let node = new Node(array[0]);
+                this.root = node;
+                i++;
+                if(i===array.length) return this;
+            }
+        }
+        //insert elements
+        const queue = [this.root];
+        while(queue.length){
+            let current = queue.shift();
+            //left
+            if(!current.left){
+                if(array[i]!==null){
+                    let node = new Node(array[i]);
+                    current.left = node;
+                }
+                i++;
+                if(i===array.length) return this;
+            }
+            if(current.left) queue.push(current.left);
+            //right
+            if(!current.right){
+                if(array[i]!==null){
+                    let node = new Node(array[i]);
+                    current.right = node;
+                }
+                i++;
+                if(i===array.length) return this;
+            }
+            if(current.right) queue.push(current.right);
+        }
+    }
+}
+
+
+function diamterBinaryTree(root){
+    if(!root) return -1;
+    let maxDiam = 0
+
+    const dfs = function(node){
+        if(!node) return -1;
+        const leftHeight = dfs(node.left);
+        const rightHeight = dfs(node.right);
+        let diamter = leftHeight+rightHeight+1+1;
+        maxDiam = Math.max(maxDiam,diamter);
+        return Math.max(leftHeight,rightHeight)+1;
+    }
+
+    dfs(root)
+    return maxDiam;
+}
+
+const dtree = new BinaryTree();
+dtree.insert([1,3,2,7,4,null,null,8,null,null,5,9,null,null,6]);
+console.log(diamterBinaryTree(dtree.root));
