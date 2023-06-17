@@ -1,5 +1,5 @@
 console.log("--------------- Question48 ( BFS - Adj List and Adj Matrix ) -------------------");
-
+// Visit neighbours before child
 const adjacencyList ={
     'A':['B','F'],
     'B':['A','F','C'],
@@ -82,3 +82,24 @@ const travMBFS = function(graph,start){
 }
 
 console.log(travMBFS(adjacencyMatrix,'A'));
+
+console.log("--------------- Question48 ( DFS - Iterative and Recursive ) -------------------");
+// Visit child before neighbours
+
+// T = O(V+E), S = O(V)
+const travRecursiveDFS = function(graph,vertex,output,visited){
+    output.push(vertex);
+    visited[vertex]=true;
+
+    const neighbours = graph[vertex];
+    for(let i=0;i<neighbours.length;i++){
+        const neighbour = neighbours[i];
+        if(!visited[neighbour]){
+            travRecursiveDFS(graph,neighbour,output,visited);
+        }
+    }
+    
+    return output;
+}
+
+console.log(travRecursiveDFS(adjacencyList,'A',[],{}))
