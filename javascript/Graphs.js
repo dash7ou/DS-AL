@@ -86,6 +86,16 @@ console.log(travMBFS(adjacencyMatrix,'A'));
 console.log("--------------- Question48 ( DFS - Iterative and Recursive ) -------------------");
 // Visit child before neighbours
 
+const adjacencyList2 ={
+    'A':['B','F'],
+    'B':['A','C'],
+    'C':['B','E','D'],
+    'D':['C','E'],
+    'E':['D','C','F'],
+    'F':['A','E']
+}
+
+
 // T = O(V+E), S = O(V)
 const travRecursiveDFS = function(graph,vertex,output,visited){
     output.push(vertex);
@@ -98,8 +108,33 @@ const travRecursiveDFS = function(graph,vertex,output,visited){
             travRecursiveDFS(graph,neighbour,output,visited);
         }
     }
-    
+
     return output;
 }
 
-console.log(travRecursiveDFS(adjacencyList,'A',[],{}))
+console.log(travRecursiveDFS(adjacencyList2,'A',[],{}))
+
+console.log("----------------------------------------------------------------------------------")
+
+// T = O(V+E), S = O(V)
+const travDFSIterative = function(graph,start){
+    const output =[];
+    const visited ={};
+    const stack = [start];
+    visited[start] = true;
+    let current;
+    while(stack.length>0){
+        current= stack.pop();
+        output.push(current);
+        const neighbours = graph[current];
+        for(let i=0;i<neighbours.length;i++){
+            if(!visited[neighbours[i]]){
+                stack.push(neighbours[i]);
+                visited[neighbours[i]]=true;
+            }
+        }
+    }
+    return output;
+}
+
+console.log(travDFSIterative(adjacencyList2,'A'));
