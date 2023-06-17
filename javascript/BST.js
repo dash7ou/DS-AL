@@ -504,3 +504,181 @@ function checkIfValidBST(root){
 const vbstree = new BinaryTree();
 vbstree.insert([10,5,20,3,7,15,30,null,4,null,null,null,17,null,null,null,null,null,18]);
 console.log(checkIfValidBST(vbstree.root))
+console.log("--------------------------------------------------")
+
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {number} k
+ * @return {number}
+ */
+class Node {
+    constructor(value, priority){
+        this.value = value
+        this.priority = priority
+    }
+}
+
+class CustomPriorityQueue {
+    constructor() {
+        this.data = [];
+    }
+
+    enqueue(value, priority) {
+        const newNode = new Node( value, priority );
+        this.data.push(newNode);
+        this.bubbleUp();
+    }
+
+    bubbleUp() {
+        let idx = this.data.length - 1;
+        const element = this.data[idx];
+        while (idx > 0) {
+            const parentIdx = Math.floor((idx - 1) / 2);
+            const parent = this.data[parentIdx];
+            if (element.priority >= parent.priority) break;
+            this.data[idx] = parent;
+            idx = parentIdx;
+        }
+        this.data[idx] = element;
+    }
+
+    dequeue() {
+        const min = this.data[0];
+        const last = this.data.pop();
+        if (this.data.length > 0) {
+            this.data[0] = last;
+            this.bubbleDown();
+        }
+        return min;
+    }
+
+    bubbleDown() {
+        let idx = 0;
+        const length = this.data.length;
+        const element = this.data[0];
+
+        while (true) {
+            let leftChildIdx = 2 * idx + 1;
+            let rightChildIdx = 2 * idx + 2;
+            let leftChild, rightChild;
+            let smallestIdx = idx;
+
+            if (leftChildIdx < length) {
+                leftChild = this.data[leftChildIdx];
+                if (leftChild.priority < this.data[smallestIdx].priority) {
+                    smallestIdx = leftChildIdx;
+                }
+            }
+
+            if (rightChildIdx < length) {
+                rightChild = this.data[rightChildIdx];
+                if (rightChild.priority < this.data[smallestIdx].priority) {
+                    smallestIdx = rightChildIdx;
+                }
+            }
+
+            if (smallestIdx === idx) break;
+
+            this.data[idx] = this.data[smallestIdx];
+            this.data[smallestIdx] = element;
+            idx = smallestIdx;
+        }
+    }
+}
+
+
+var kthSmallest = function(root, k) {
+    const pq = new CustomPriorityQueue();
+
+    function dfs(node){
+        if(!node) return;
+        pq.enqueue(node.val, node.val)
+        dfs(node.left)
+        dfs(node.right)
+    }
+    dfs(root)
+    console.log(pq)
+    for(let i = 0; i < k-1; i++){
+        console.log("here", pq)
+        pq.dequeue()
+    }
+    console.log("here", pq)
+
+    return pq.dequeue().value
+};
+
+
+const root = {
+    val: 5,
+    right: {
+        val: 6
+    },
+    left: {
+        val: 3,
+        left: {
+            val: 2,
+            left: {
+                val: 1
+            }
+        },
+        right: {
+            val: 4
+        }
+    }
+}
+
+console.log(kthSmallest(root, 3))
+
+
+console.log("--------------------------------------------------")
+
+/**
+ * @param {string[]} words
+ * @param {number} k
+ * @return {string[]}
+ */
+var topKFrequent = function(words, k) {
+    words = words.sort();
+    const obj = {};
+
+    for (const word of words) {
+      if (!obj[word]) {
+        obj[word] = 1;
+      }else{
+        obj[word] = obj[word]+1;
+      }
+    }
+
+  
+    const sortedArr = [];
+    for (const key in obj) {
+      sortedArr.push([key, obj[key]]);
+    }
+  
+    sortedArr.sort((a, b) => {
+      return b[1] - a[1];
+    });
+  
+    while (sortedArr.length !== k) {
+      sortedArr.pop();
+    }
+  
+    const solution = [];
+    for (let i = 0; i < sortedArr.length; i++) {
+      solution.push(sortedArr[i][0]);
+    }
+  
+    return solution;
+};
+
+
+console.log(topKFrequent(["i","love","leetcode","i","love","coding"], 2))
