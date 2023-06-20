@@ -138,3 +138,54 @@ const travDFSIterative = function(graph,start){
 }
 
 console.log(travDFSIterative(adjacencyList2,'A'));
+
+console.log("--------------- Question50 ( Number of connected components ) -------------------");
+// T = O(V+E)
+// S = adj list v+e, call stack max v, object v => O(V+E)
+
+const buildAdjList = function(n,edges){
+    const adj = new Array(n).fill(0).map(()=> []);
+
+    for(let e of edges){
+        const n1 = e[0];
+        const n2 = e[1];
+
+        adj[n1].push(n2);
+        adj[n2].push(n1)
+    }
+
+    return adj
+}
+
+const dfs = function(graph, v, visited){
+    visited[v] = true;
+    const neighbour = graph[v];
+
+    for(let n = 0 ; n < neighbour.length; n++){
+        const nei = neighbour[n];
+        if(!visited[nei]){
+            dfs(graph, nei, visited)
+        }
+    }
+
+}
+
+const countComponents = function(n,edges){
+    const graph = buildAdjList(n, edges);
+    let visited = {};
+    let counter = 0;
+
+    for(let v=0; v<n; v++){
+        if(!visited[v]){
+            counter++
+            dfs(graph, v, visited);
+        }
+    }
+
+    return counter;
+}
+
+
+const n = 7;//0,1,2,3,4,5,6
+const edges = [[0,1],[1,2],[3,4],[5,6]];
+console.log(countComponents(n,edges))
