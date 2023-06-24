@@ -151,10 +151,10 @@ const buildAdjList = function(n,edges){
         const n2 = e[1];
 
         adj[n1].push(n2);
-        adj[n2].push(n1)
+        adj[n2].push(n1);
     }
 
-    return adj
+    return adj;
 }
 
 const dfs = function(graph, v, visited){
@@ -189,3 +189,60 @@ const countComponents = function(n,edges){
 const n = 7;//0,1,2,3,4,5,6
 const edges = [[0,1],[1,2],[3,4],[5,6]];
 console.log(countComponents(n,edges))
+
+
+console.log("--------------- Question51 ( Course Scheduler / Topological sort ) -------------------");
+// T = ( n + p + n (n + E)) = (p + n^2 + nE), S = adj list O(n + E)
+
+const cbuildAdjList = function (n, prerecs){
+    const adjList = new Array(n).fill(0).map(_ => []);
+
+    for(let prerec of prerecs){
+        const [toTake, firstTake] = prerec;
+        adjList[firstTake].push(toTake);
+    }
+
+    return adjList;
+}
+
+const checkCycleBFS = function(v, graph){
+    const queue = [];
+    const visited = {};
+
+    for(let i = 0; i < graph[v].length; i++){
+        queue.push(graph[v][i]);
+    }
+
+    while(queue.length){
+        const curr = queue.shift();
+        visited[curr] = true;
+        if(curr === v) return true;
+        const neighbours = graph[curr];
+        for(let j = 0; j < neighbours.length; j++){
+            const n = neighbours[j];
+            if(!visited[n]){
+                queue.push(n)
+            }
+        }   
+    }
+
+    return false;
+}
+
+const checkIfCanFinish = function(n, prerecs){
+    const adjList = cbuildAdjList(n, prerecs);
+
+    let hasCycle;
+    for(let vertex = 0; vertex < n; vertex++){
+        hasCycle = checkCycleBFS(vertex, adjList);
+        if(hasCycle) return false;
+    }
+
+    return true;
+}
+
+console.log(checkIfCanFinish(2, [[0,1],[1,0]]))
+console.log(checkIfCanFinish(5, [[1,0],[2,0], [3,2], [1,3], [4,2]]))
+console.log(checkIfCanFinish(5, [[0, 1],[2,0], [3,2], [1,3], [4,2]]))
+console.log(checkIfCanFinish(8, [[0, 1],[2,0], [3,2], [1,3], [4,2], [5,6],[7,5],[6,7]]))
+console.log(checkIfCanFinish(7, [[1,0],[2,0], [2,1], [3,2], [5,4], [6,5],[4,6]]))
