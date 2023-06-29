@@ -192,6 +192,7 @@ console.log(countComponents(n,edges))
 
 
 console.log("--------------- Question51 ( Course Scheduler / Topological sort ) -------------------");
+// brute force
 // T = ( n + p + n (n + E)) = (p + n^2 + nE), S = adj list O(n + E)
 
 const cbuildAdjList = function (n, prerecs){
@@ -246,3 +247,52 @@ console.log(checkIfCanFinish(5, [[1,0],[2,0], [3,2], [1,3], [4,2]]))
 console.log(checkIfCanFinish(5, [[0, 1],[2,0], [3,2], [1,3], [4,2]]))
 console.log(checkIfCanFinish(8, [[0, 1],[2,0], [3,2], [1,3], [4,2], [5,6],[7,5],[6,7]]))
 console.log(checkIfCanFinish(7, [[1,0],[2,0], [2,1], [3,2], [5,4], [6,5],[4,6]]))
+
+console.log("----------------------------------------------------------------------------------")
+// Topological Sort
+// T = O(p + n + E) => O(p+n) + O(n+E)
+// S = O(n +E)
+
+const helper = function (n, prerecs){
+    const adjList = new Array(n).fill(0).map(_ => []);
+    const inDegree = new Array(n).fill(0);
+
+    for(let i =0; i < n; i++){
+        const [toTake, firstTake] = prerecs[i];
+        adjList[firstTake].push(toTake);
+        inDegree[toTake]++;
+    }
+
+    return [adjList, inDegree]
+}
+
+const checkIfCanFinishTS = function(n, prerecs){
+    const stack = [];
+    const [adjList, inDegree] = helper(n, prerecs);
+
+    for(let i = 0; i < n; i++){
+        if(inDegree[i] === 0) stack.push(i)
+    }
+
+    let count = 0;
+    while(stack.length){
+        const curr = stack.pop();
+        count++;
+
+        const neighbours = adjList[curr];
+        for(let n of neighbours){
+            inDegree[n]--;
+            if(inDegree[n] === 0 ) stack.push(n);
+        }
+
+    }
+    return count === n;
+}
+
+console.log(checkIfCanFinishTS(2, [[0,1],[1,0]]))
+console.log(checkIfCanFinishTS(5, [[1,0],[2,0], [3,2], [1,3], [4,2]]))
+console.log(checkIfCanFinishTS(5, [[0, 1],[2,0], [3,2], [1,3], [4,2]]))
+console.log(checkIfCanFinishTS(8, [[0, 1],[2,0], [3,2], [1,3], [4,2], [5,6],[7,5],[6,7]]))
+console.log(checkIfCanFinishTS(7, [[1,0],[2,0], [2,1], [3,2], [5,4], [6,5],[4,6]]))
+console.log(checkIfCanFinishTS(5, [[1,0],[2,0], [2,1], [2,4], [3,2], [4,3]]))
+console.log(checkIfCanFinishTS(6, [[4,1],[2,1], [2,3], [5,4], [5,3], [5,0], [0,3]]))
