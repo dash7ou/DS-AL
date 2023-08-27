@@ -1,0 +1,22 @@
+{
+  "name": "ds-al",
+  "version": "1.0.0",
+  "description": "Welcome! In this repo I have solve over 50 questions about data structures and algorithms u can found them in Questions.xlsx, file contains a collection of 51 questions covering various topics related to Data Structures and Algorithms. Whether you are preparing for a coding interview or studying these concepts for personal growth, these questions aim to challenge and expand your understanding of data structures and algorithms.",
+  "main": "BST.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dash7ou/DS-AL.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dash7ou/DS-AL/issues"
+  },
+  "homepage": "https://github.com/dash7ou/DS-AL#readme",
+  "dependencies": {
+    "@datastructures-js/priority-queue": "^6.3.0"
+  }
+}
